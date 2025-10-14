@@ -1,11 +1,13 @@
-# Flask + PostgreSQL + Docker Compose
+# Flask Task Manager with PostgreSQL
 
-A simple Flask web application with PostgreSQL database and pgAdmin, fully containerized with Docker Compose.
+A task management web application with user authentication, built with Flask and PostgreSQL, fully containerized with Docker Compose.
 
 ## Features
 
-- Flask web app with contact form
-- PostgreSQL database for data persistence
+- User registration and login system
+- Create, complete, and delete tasks
+- User-specific task lists
+- PostgreSQL database with SQLAlchemy ORM
 - pgAdmin for database management
 - Fully containerized with Docker Compose
 
@@ -29,6 +31,7 @@ DATABASE_HOST=db
 DATABASE_NAME=mydb
 DATABASE_USER=user
 DATABASE_PASSWORD=password
+SECRET_KEY=your-secret-key-change-this-in-production
 
 # pgAdmin
 PGADMIN_DEFAULT_EMAIL=admin@example.com
@@ -44,8 +47,14 @@ docker-compose up --build
 ### 3. Access services
 
 - **Flask App**: http://localhost:5000
-- **Contact Form**: http://localhost:5000/contact
 - **pgAdmin**: http://localhost:5050
+
+## Using the Application
+
+1. Open http://localhost:5000
+2. Register a new account
+3. Login with your credentials
+4. Start adding tasks!
 
 ## Docker Commands
 
@@ -71,13 +80,29 @@ docker-compose up --build
    - Port: `5432`
    - Username/Password: from `.env`
 
+## Database Schema
+
+### Users Table
+- `id`: Primary key
+- `username`: Unique username
+- `password`: Hashed password
+
+### Tasks Table
+- `id`: Primary key
+- `title`: Task description
+- `completed`: Boolean status
+- `created_at`: Timestamp
+- `user_id`: Foreign key to users
+
 ## Tech Stack
 
 - Python 3.10
 - Flask 3.0.3
+- Flask-SQLAlchemy 3.0.5
+- Flask-Login 0.6.3
 - PostgreSQL 16
 - pgAdmin 8.12
 
 ---
 
-**Note**: Change default credentials before production use!
+**Note**: Change default credentials and SECRET_KEY before production use!
