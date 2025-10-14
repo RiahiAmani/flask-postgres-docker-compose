@@ -2,9 +2,6 @@
 
 A task management web application with user authentication, built with Flask and PostgreSQL, fully containerized with Docker Compose.
 
-[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-devopsismail%2Fflask--task--manager-blue)](https://hub.docker.com/r/devopsismail/flask-task-manager)
-[![Image Size](https://img.shields.io/badge/image%20size-265MB-brightgreen)](https://hub.docker.com/r/devopsismail/flask-task-manager)
-
 ## Features
 
 - User registration and login system
@@ -13,7 +10,6 @@ A task management web application with user authentication, built with Flask and
 - PostgreSQL database with SQLAlchemy ORM
 - pgAdmin for database management
 - Fully containerized with Docker Compose
-- Available on Docker Hub
 
 ## Prerequisites
 
@@ -21,19 +17,6 @@ A task management web application with user authentication, built with Flask and
 - Docker Compose
 
 ## Quick Start
-
-### Option A: Pull from Docker Hub (Recommended)
-
-```bash
-# Pull the pre-built image
-docker pull devopsismail/flask-task-manager:latest
-
-# Update docker-compose.yml to use the Docker Hub image
-# Change: build: .
-# To: image: devopsismail/flask-task-manager:latest
-```
-
-### Option B: Build Locally
 
 ### 1. Create `.env` file
 
@@ -120,29 +103,8 @@ docker-compose up --build
 - PostgreSQL 16
 - pgAdmin 8.12
 
-## Docker Hub
-
-This image is available on Docker Hub:
-- **Repository**: `devopsismail/flask-task-manager`
-- **Tags**: `latest`, `v1.0`
-- **Size**: 265MB
-- **Pull Command**: `docker pull devopsismail/flask-task-manager:latest`
-
-### Using the Docker Hub Image
-
-Update your `docker-compose.yml`:
-
-```yaml
-services:
-  web:
-    image: devopsismail/flask-task-manager:latest
-    # Remove or comment out: build: .
-    container_name: flask_app
-    ports:
-      - "5000:5000"
-    # ... rest of configuration
-```
-
 ---
 
 **Note**: Change default credentials and SECRET_KEY before production use!
+
+# docker ps -aq | ForEach-Object { docker rm -f $_ }; docker images -q | ForEach-Object { docker rmi -f $_ }
