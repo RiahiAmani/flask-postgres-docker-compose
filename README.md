@@ -194,4 +194,6 @@ docker-compose logs db
 
 ---
 
-**Made with ❤️ using Flask & Docker**
+**Happy Coding**
+
+
