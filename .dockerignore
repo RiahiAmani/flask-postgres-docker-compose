@@ -1,0 +1,9 @@
+.git
+.gitignore
+.env
+*.pyc
+__pycache__/
+tests/
+README.md
+k8s-manifests/
+Jenkinsfile

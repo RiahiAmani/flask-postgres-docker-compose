@@ -17,6 +17,7 @@ spec:
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
+      automountServiceAccountToken: false
       containers:
         - name: taskmanager-app
           image: riahiamani/taskmanager-flask:latest
