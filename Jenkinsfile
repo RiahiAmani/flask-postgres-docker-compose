@@ -81,19 +81,20 @@ spec:
     }
 
     stage('Tests unitaires et couverture') {
-      steps {
-        container('python') {
-          sh '''
-          if [ -d tests ]; then
-            pip install -r requirements-dev.txt --quiet --break-system-packages 
-            pytest --cov=. --cov-report=xml:coverage.xml || true
-          else
-            echo "Aucun dossier tests/ trouve - stage ignore."
-          fi
-          '''
-        }
-      }
+  steps {
+    container('python') {
+      sh '''
+      if [ -d tests ]; then
+        pip install -r requirements-dev.txt --quiet --break-system-packages
+        pytest --cov=. --cov-report=xml:coverage.xml || true
+      else
+        echo "Aucun dossier tests/ trouve - stage ignore."
+      fi
+      chmod -R a+rX ${WORKSPACE} || true
+      '''
     }
+  }
+}
 
     stage('Analyse statique du code (SonarCloud)') {
       steps {
