@@ -85,7 +85,7 @@ spec:
         container('python') {
           sh '''
           if [ -d tests ]; then
-            pip install -r requirements.txt pytest pytest-cov --quiet --break-system-packages
+            pip install -r requirements-dev.txt --quiet --break-system-packages 
             pytest --cov=. --cov-report=xml:coverage.xml || true
           else
             echo "Aucun dossier tests/ trouve - stage ignore."
