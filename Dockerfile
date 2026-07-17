@@ -3,15 +3,15 @@ FROM python:3.10-slim
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir --only-binary=:all: -r requirements.txt
+RUN pip install --no-cache-dir --require-hashes --only-binary=:all: -r requirements.txt
 
 COPY app/ ./app/
 COPY wsgi.py .
 
-RUN groupadd -r flaskuser && useradd -r -g flaskuser flaskuser \
+RUN groupadd -r -g 1000 flaskuser && useradd -r -u 1000 -g flaskuser flaskuser \
     && chown -R flaskuser:flaskuser /app
 
-USER flaskuser
+USER 1000
 
 EXPOSE 5000
 
