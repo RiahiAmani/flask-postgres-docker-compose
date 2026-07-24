@@ -6,6 +6,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
+    last_seen = db.Column(db.DateTime, nullable=True)
     tasks = db.relationship('Task', backref='owner', lazy=True)
 
 class Task(db.Model):
