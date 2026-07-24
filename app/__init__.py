@@ -3,7 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from flask_wtf import CSRFProtect
 from prometheus_flask_exporter import PrometheusMetrics
-from prometheus_client.core import GaugeMetricFamily, REGISTRY
+from prometheus_client import CollectorRegistry
+from prometheus_client.core import GaugeMetricFamily
 from datetime import datetime, timedelta
 import os
 
@@ -25,9 +26,10 @@ class ActiveSessionsCollector:
 
 def create_app(test_config=None):
     app = Flask(__name__)
-    metrics = PrometheusMetrics(app)
+
+    metrics_registry = CollectorRegistry()
+    metrics = PrometheusMetrics(app, registry=metrics_registry)
     metrics.info('taskmanager_app_info', 'Task Manager application info', version='1.0')
-    REGISTRY.register(ActiveSessionsCollector())
 
     if test_config is None:
         secret_key = os.getenv('SECRET_KEY')
@@ -60,4 +62,6 @@ def create_app(test_config=None):
 
     with app.app_context():
         db.create_all()
+        metrics_registry.register(ActiveSessionsCollector())
+
     return app
