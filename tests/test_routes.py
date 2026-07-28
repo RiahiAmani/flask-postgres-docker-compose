@@ -35,9 +35,13 @@ def test_cannot_modify_others_task(client, app):
     client.post('/add', data={'title': 'Carol task'}, follow_redirects=True)
     with app.app_context():
         task = Task.query.filter_by(title='Carol task').first()
+        task_id = task.id
     client.get('/logout', follow_redirects=True)
 
     register(client, 'dave', 'pw67890')
     login(client, 'dave', 'pw67890')
-    response = client.get(f'/delete/{task.id}', follow_redirects=True)
-    assert b'Carol task' in response.data
+    client.get(f'/delete/{task_id}', follow_redirects=True)
+
+    with app.app_context():
+        still_exists = Task.query.get(task_id) is not None
+    assert still_exists, "La tâche de Carol n'aurait pas dû être supprimable par Dave"
