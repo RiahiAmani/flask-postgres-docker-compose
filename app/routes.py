@@ -5,6 +5,11 @@ from flask_login import login_required, current_user
 
 main = Blueprint('main', __name__)
 
+@main.route('/healthz')
+def healthz():
+    return {'status': 'ok'}, 200
+
+
 @main.route('/')
 @login_required
 def index():
