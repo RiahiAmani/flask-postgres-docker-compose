@@ -59,5 +59,6 @@ spec:
   selector:
     app: taskmanager-app
   ports:
-    - port: 80
+    - name: http
+      port: 80
       targetPort: 5000
