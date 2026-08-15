@@ -53,6 +53,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    app: taskmanager-app
   name: taskmanager-app-service
   namespace: devsecops
 spec:
